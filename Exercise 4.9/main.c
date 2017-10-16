@@ -5,24 +5,24 @@
  * Set baud rate to 57554 ***IN PUTTY****
  */
 
-
 void main(void)
 {
-  WDTCTL = WDTPW + WDTHOLD;             // Stop watchdog timer
-  BCSCTL1 = XT2OFF + XTS;               // XT2 off, XT1 high freq
-  BCSCTL2 = SELM0 + SELM1 + SELS;       // XT1 -> MCLK, XT1 -> SMCLK
-  BCSCTL3 = LFXT1S1;                    // XT1 freq 3-16 MHz
+      WDTCTL = WDTPW + WDTHOLD;             // Stop watchdog timer
+      BCSCTL1 = XT2OFF + XTS;               // XT2 off, XT1 high freq
+      BCSCTL2 = SELM0 + SELM1 + SELS;       // XT1 -> MCLK, XT1 -> SMCLK
+      BCSCTL3 = LFXT1S1;                    // XT1 freq 3-16 MHz
 
-  P1DIR = BIT7;                         //port 1.7 pins as output
-  P3SEL = BIT4 | BIT5;                  // Set up ports 3.4 and 3.5 as UART ports
+      P1DIR = BIT7;                         //port 1.7 pins as output
+      P3SEL = BIT4 | BIT5;                  // Set up ports 3.4 and 3.5 as UART ports
 
-  UCA0CTL1 = UCSSEL1;                   // Use SMCLK for UART
-  UCA0BR0 = 277 & 0xFF;                // Set baud rate to 57.6kHz ***SET THIS RATE IN PUTTY****
-  UCA0BR1 = 277 >> 8;
-  UCA0MCTL = UCBRS_6;                   // Set modulation bits
-  IE2 |= UCA0RXIE;                      // Enable Rx interrupt
-
-  _EINT();                              // Global interrupt enable
+  // UART Stuffs
+      UCA0CTL1 = UCSSEL1;          // Use SMCLK for UART (Page 430)
+      UCA0BR0 = 17;       // Set baud rate (Table 15-4 on page 425)
+      UCA0BR1 = 0b00000000;
+      UCA0MCTL = UCBRF2 + UCBRF1 + UCOS16;          // Set modulation bits (Page 431) Set UCOS16 for Oversampling table on page 425
+      IE2 |= UCA0RXIE;                      // Enable Rx interrupt
+  //Interrupt Enable
+      _EINT();                              // Global interrupt enable
 
   while (1);
 }

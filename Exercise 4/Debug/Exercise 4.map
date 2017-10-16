@@ -1,7 +1,7 @@
 ******************************************************************************
                   MSP430 Linker PC v16.9.4                     
 ******************************************************************************
->> Linked Sun Oct 01 23:55:35 2017
+>> Linked Mon Oct 16 01:20:24 2017
 
 OUTPUT FILE NAME:   <Exercise 4.out>
 ENTRY POINT SYMBOL: "_c_int00_noinit_noargs_noexit"  address: 000080a0

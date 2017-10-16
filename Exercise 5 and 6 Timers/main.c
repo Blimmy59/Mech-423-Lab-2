@@ -63,6 +63,7 @@ __interrupt void TIMER_A1 (void){
     TACCTL1 ^= CCIFG;
 }
 
+//Timer B0 ISR
 #pragma vector = TIMERB0_VECTOR
 __interrupt void Timer_B0(void)
 {
@@ -79,5 +80,4 @@ __interrupt void Timer_B0(void)
         TBCCTL0 &= ~CM1;
         TBCCTL0 |= CM0;
     }
-
 }
